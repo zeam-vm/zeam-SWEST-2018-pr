@@ -1,0 +1,39 @@
+{
+  "name": "zeam-SWEST-2018-pr",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zeam-vm/zeam-SWEST-2018-pr.git"
+  },
+  "scripts": {
+    "serve": "yarn gulp && yarn grunt serve",
+    "deploy": "yarn gulp && yarn grunt deploy",
+    "test": "yarn gulp && yarn grunt test",
+    "setup": "yarn install && bower install",
+    "up": "yarn upgrade && bower update"
+  },
+  "dependencies": {
+    "bower": "^1.8.2",
+    "cofeescript": "^0.0.1-security",
+    "coffeelint": "^1.16.0",
+    "del": "^3.0.0",
+    "grunt": "^1.0.0",
+    "grunt-build-control": "^0.7.1",
+    "grunt-coffeelint": "0.0.16",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-slim": "^0.3.0",
+    "load-grunt-tasks": "^3.5.2",
+    "npm": "^6.2.0"
+  }
+}
