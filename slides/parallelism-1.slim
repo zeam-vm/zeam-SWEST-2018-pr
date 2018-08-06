@@ -1,0 +1,23 @@
+h3
+	span.nonsplit.heading C言語 のここがダメ!!
+	span.nonsplit.heading その1
+h2
+	span.nonsplit.strong.heading 並列処理は一苦労
+
+.small
+	markdown:
+		* **C言語でマルチコア対応**とかって，**大変!!**ですよね。
+			* 同期や排他制御をかなり神経質にコーディングしないといけない
+			* デッドロックとか優先度逆転とかにも気を配らないといけない
+			* 苦労してコーディングしても，そんなに性能が上がらない
+ruby:
+	def markdown_par_c
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```C
+	/* ここに TOPPERS の並列処理コード例を書きたい */
+	```
+	EOS
+		)
+	end
+.large
+	== markdown_par_c
