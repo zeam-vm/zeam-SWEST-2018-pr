@@ -1,0 +1,36 @@
+.small
+	h3
+		span.nonsplit.heading Elixir &nbsp;
+		img.heading30 src="resources/images/logo.png"
+		span.nonsplit.heading &nbsp; のここがイケている &nbsp;
+		span.nonsplit.heading その2
+	h2
+		span.nonsplit.strong.heading シンプルでとっつきやすい，
+		span.nonsplit.strong.heading それでいてパワフルな言語仕様
+
+.small
+	p.center.strong 
+
+	markdown:
+		* **パイプライン演算子** |>
+			* UNIXのパイプのように，計算結果を関数に次々と渡していける
+		* **MapReduceモデル**
+			* Map: リストの各要素に関数を適用(並列で実行される)
+			* Reduce: 計算結果を集約
+ruby:
+	def md_flow_ex_2
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```elixir
+	0..10000
+	|> Flow.from_enumerable
+	|> Flow.map(& &1 * 2)						# Map
+	|> Flow.map(& &1 + 1)
+	|> Enum.reduce(fn (x, acc) -> x + acc end)	# Reduce
+
+	# 全体として，リストの各要素を2倍して1加えてから総和を求める
+	```
+	EOS
+		)
+	end
+.large
+	== md_flow_ex_2

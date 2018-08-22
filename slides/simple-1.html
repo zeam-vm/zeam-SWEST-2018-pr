@@ -1,0 +1,35 @@
+<div class="small">
+  <h3>
+    <span class="nonsplit heading">Elixir &nbsp;</span><img class="heading30" src="resources/images/logo.png" /><span class="nonsplit heading">&nbsp; のここがイケている &nbsp;</span><span class="nonsplit heading">その2</span>
+  </h3>
+  <h2>
+    <span class="nonsplit strong heading">シンプルでとっつきやすい，</span><span class="nonsplit strong heading">それでいてパワフルな言語仕様</span>
+  </h2>
+</div>
+<div class="small">
+  <p class="center strong"></p>
+  <ul>
+  <li><strong>パイプライン演算子</strong> |&gt;
+  
+  <ul>
+  <li>UNIXのパイプのように，計算結果を関数に次々と渡していける</li>
+  </ul></li>
+  <li><strong>MapReduceモデル</strong>
+  
+  <ul>
+  <li>Map: リストの各要素に関数を適用(並列で実行される)</li>
+  <li>Reduce: 計算結果を集約</li>
+  </ul></li>
+  </ul>
+  
+</div>
+<div class="large"><pre><code class="elixir">0..10000
+|&gt; Flow.from_enumerable
+|&gt; Flow.map(&amp; &amp;1 * 2)                       # Map
+|&gt; Flow.map(&amp; &amp;1 + 1)
+|&gt; Enum.reduce(fn (x, acc) -&gt; x + acc end)  # Reduce
+
+# 全体として，リストの各要素を2倍して1加えてから総和を求める
+</code></pre>
+
+</div>
