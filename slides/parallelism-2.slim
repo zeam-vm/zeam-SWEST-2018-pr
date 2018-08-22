@@ -1,10 +1,35 @@
-h3
-	span.nonsplit.heading Elixir &nbsp;
-	img.heading30 src="resources/images/logo.png"
-	span.nonsplit.heading &nbsp; のここがイケている &nbsp;
-	span.nonsplit.heading その1
-h2
-	span.nonsplit.strong.heading 並列処理が得意
+.small
+	h3
+		span.nonsplit.heading Elixir &nbsp;
+		img.heading30 src="resources/images/logo.png"
+		span.nonsplit.heading &nbsp; のここがイケている &nbsp;
+		span.nonsplit.heading その1
+	h2
+		span.nonsplit.strong.heading 並列処理が得意
 
 .small
+	p.center.strong Elixirでマルチコアでの計算はシンプル
+
 	markdown:
+		* **同期や排他制御を基本的に書く必要がない**
+			* イミュータブル特性(変数の値が決まると不変になる特性)
+			* 値の書き換えのために排他制御しなくていい
+			* 各コアにコピーを置いておける
+		* **デッドロックも基本的に気にしなくていい**
+			* 今はリアルタイム対応していないので優先度は設定できない
+		* **コア数が増えるにしたがって，きれいに性能が向上する**
+
+ruby:
+	def md_flow_ex
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```elixir
+	0..10000						# 0から10000までのリストを用意する
+	|> Flow.from_enumerable			# リストを各コアに分配する
+	|> Flow.map(& &1 * 2)			# 各要素を2倍する
+	|> Enum.to_list					# 計算結果をリストとして集める
+	```
+	EOS
+		)
+	end
+.large
+	== md_flow_ex
