@@ -1,9 +1,36 @@
-<h3>
-  <span class="nonsplit heading">Elixir &nbsp;</span><img class="heading30" src="resources/images/logo.png" /><span class="nonsplit heading">&nbsp; のここがイケている &nbsp;</span><span class="nonsplit heading">その1</span>
-</h3>
-<h2>
-  <span class="nonsplit strong heading">並列処理が得意</span>
-</h2>
 <div class="small">
+  <h3>
+    <span class="nonsplit heading">Elixir &nbsp;</span><img class="heading30" src="resources/images/logo.png" /><span class="nonsplit heading">&nbsp; のここがイケている &nbsp;</span><span class="nonsplit heading">その1</span>
+  </h3>
+  <h2>
+    <span class="nonsplit strong heading">並列処理が得意</span>
+  </h2>
+</div>
+<div class="small">
+  <p class="center strong">
+    Elixirでマルチコアでの計算はシンプル
+  </p>
+  <ul>
+  <li><strong>同期や排他制御を基本的に書く必要がない</strong>
   
+  <ul>
+  <li>イミュータブル特性(変数の値が決まると不変になる特性)</li>
+  <li>値の書き換えのために排他制御しなくていい</li>
+  <li>各コアにコピーを置いておける</li>
+  </ul></li>
+  <li><strong>デッドロックも基本的に気にしなくていい</strong>
+  
+  <ul>
+  <li>今はリアルタイム対応していないので優先度は設定できない</li>
+  </ul></li>
+  <li><strong>コア数が増えるにしたがって，きれいに性能が向上する</strong></li>
+  </ul>
+  
+</div>
+<div class="large"><pre><code class="elixir">0..10000                        # 0から10000までのリストを用意する
+|&gt; Flow.from_enumerable         # リストを各コアに分配する
+|&gt; Flow.map(&amp; &amp;1 * 2)           # 各要素を2倍する
+|&gt; Enum.to_list                 # 計算結果をリストとして集める
+</code></pre>
+
 </div>

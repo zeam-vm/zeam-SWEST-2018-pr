@@ -1,22 +1,44 @@
-<h3>
-  <span class="nonsplit heading">C言語 のここがツライ。。。</span><span class="nonsplit heading">その1</span>
-</h3>
-<h2>
-  <span class="nonsplit strong heading">並列処理は一苦労</span>
-</h2>
 <div class="small">
-  <ul>
-  <li><strong>C言語でマルチコア対応</strong>とかって，<strong>大変!!</strong>ですよね。
-  
+  <h3>
+    <span class="nonsplit heading">C言語 のここがツライ。。。</span><span class="nonsplit heading">その1</span>
+  </h3>
+  <h2>
+    <span class="nonsplit strong heading">並列処理は一苦労</span>
+  </h2>
+</div>
+<div class="small">
+  <p class="center">
+    <span class="strong">C言語でマルチコア対応</span><span>とかって，</span><span class="strong">大変!!</span><span>ですよね</span>
+  </p>
   <ul>
   <li>同期や排他制御をかなり神経質にコーディングしないといけない</li>
   <li>デッドロックとか優先度逆転とかにも気を配らないといけない</li>
   <li>苦労してコーディングしても，そんなに性能が上がらない</li>
-  </ul></li>
   </ul>
   
 </div>
-<div class="large"><pre><code class="C">/* ここに TOPPERS の並列処理コード例を書きたい */
+<div class="small"><pre><code class="C">void main_task(intptr_t exinf) {                    /* メインタスク */
+    int_t i;
+    act_tsk(FLOW_TASK1);                            /* タスクの起動 */
+    act_tsk(FLOW_TASK2);
+    wai_flg(FLOW_FLAG, 0x3, TWF_ANDW, &amp;flag);       /* 各タスクが計算終わるのをフラグで待つ */
+}
+
+void flow_task(intptr_t exinf) {                    /* マルチコア計算タスク */
+    int_t i;
+    int_t data_start, data_end;
+    int_t tskno = (int_t) exinf;
+
+    if (exinf == 1) {                               /* 配列のどの範囲を計算するかを決める */
+        data_start = 0
+        data_end = DATA_DIV
+    } else if (exinf == 2) {
+        ...
+    }
+
+    for (i=data_start; i&lt;data_end; i++)             /* 実際の計算 (各要素を2倍する) */
+        flow_data[i] *= 2;                          /* 本当はもしかするとここで排他制御が要るかもしれない */
+}
 </code></pre>
 
 </div>
