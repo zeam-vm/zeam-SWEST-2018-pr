@@ -6,11 +6,16 @@
 		span.nonsplit.strong.heading 並列処理は一苦労
 
 .small
+	p.center
+		span.strong C言語でマルチコア対応
+		span とかって，
+		span.strong 大変!!
+		span ですよね
+
 	markdown:
-		* **C言語でマルチコア対応**とかって，**大変!!**ですよね。
-			* 同期や排他制御をかなり神経質にコーディングしないといけない
-			* デッドロックとか優先度逆転とかにも気を配らないといけない
-			* 苦労してコーディングしても，そんなに性能が上がらない
+		* 同期や排他制御をかなり神経質にコーディングしないといけない
+		* デッドロックとか優先度逆転とかにも気を配らないといけない
+		* 苦労してコーディングしても，そんなに性能が上がらない
 ruby:
 	def md_flow_c
 		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
