@@ -1,8 +1,9 @@
-h3
-	span.nonsplit.heading C言語 のここがツライ。。。
-	span.nonsplit.heading その1
-h2
-	span.nonsplit.strong.heading 並列処理は一苦労
+.small
+	h3
+		span.nonsplit.heading C言語 のここがツライ。。。
+		span.nonsplit.heading その1
+	h2
+		span.nonsplit.strong.heading 並列処理は一苦労
 
 .small
 	markdown:
@@ -11,13 +12,34 @@ h2
 			* デッドロックとか優先度逆転とかにも気を配らないといけない
 			* 苦労してコーディングしても，そんなに性能が上がらない
 ruby:
-	def markdown_par_c
+	def md_flow_c
 		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
 	```C
-	/* ここに TOPPERS の並列処理コード例を書きたい */
+	void main_task(intptr_t exinf) {					/* メインタスク */
+		int_t i;
+		act_tsk(FLOW_TASK1);							/* タスクの起動 */
+		act_tsk(FLOW_TASK2);
+		wai_flg(FLOW_FLAG, 0x3, TWF_ANDW, &flag);		/* 各タスクが計算終わるのをフラグで待つ */
+	}
+
+	void flow_task(intptr_t exinf) {					/* マルチコア計算タスク */
+		int_t i;
+		int_t data_start, data_end;
+		int_t tskno = (int_t) exinf;
+
+		if (exinf == 1) {								/* 配列のどの範囲を計算するかを決める */
+			data_start = 0
+			data_end = DATA_DIV
+		} else if (exinf == 2) {
+			...
+		}
+
+		for (i=data_start; i<data_end; i++)				/* 実際の計算 (各要素を2倍する) */
+			flow_data[i] *= 2;							/* 本当はもしかするとここで排他制御が要るかもしれない */
+	}
 	```
 	EOS
 		)
 	end
-.large
-	== markdown_par_c
+.small
+	== md_flow_c
