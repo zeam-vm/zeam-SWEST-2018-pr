@@ -1,0 +1,28 @@
+<div class="small">
+  <h2>
+    <span class="nonsplit">micro Elixir / ZEAM &nbsp;</span><span class="nonsplit">アノテーションによる</span><span class="nonsplit">マルチコアCPU/GPU活用 Hastega</span>
+  </h2>
+</div>
+<ul>
+<li>次のような場合に高速に計算できる
+
+<ul>
+<li><strong>単純で均質で大量にあるデータ</strong>を</li>
+<li><strong>同じような命令列</strong>で処理する場合</li>
+</ul></li>
+</ul>
+
+<div class="relative">
+  <pre><code class="lang-elixir hljs large">0..10000
+|> Enum.map(foo)
+|> Enum.map(bar)</code></pre><svg class="absolute" height="180" viewBox="0, 0, 864, 180" width="864"><ellipse cx="100" cy="24" fill="none" rx="70" ry="15" stroke="pink" stroke-width="5"></ellipse><text fill="pink" font-size="16px" x="200" y="30">単純で均質で大量にあるデータ</text><ellipse cx="210" cy="75" fill="none" rx="30" ry="40" stroke="pink" stroke-width="5"></ellipse><text fill="pink" font-size="16px" x="250" y="75">同じような命令列</text><text fill="yellow" font-size="20px" x="400" y="90">単純な方法でGPUを駆動するコードにできる！</text></svg>
+</div>
+<pre><code class="lang-c hljs">__kernel void calc(
+  __global long* input,
+  __global long* output) {
+  size_t i = get_global_id(0);
+  long temp = input[i];
+  temp = foo(temp);        # 実際には関数呼出しをインライン展開することで，
+  temp = bar(temp);        # さらなる最適化を促進する
+  output[i] = temp;
+}</code></pre>
