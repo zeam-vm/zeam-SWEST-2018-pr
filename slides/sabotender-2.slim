@@ -1,0 +1,52 @@
+.small
+	h2
+		span.nonsplit micro Elixir / ZEAM &nbsp;
+		span.nonsplit ネイティブなコールバック方式の
+		span.nonsplit マルチタスク機構 Sabotender
+
+	markdown:
+		コールバック方式の原理
+
+ruby:
+	def md_led_c
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```C
+	void blink_led() {
+		turn_on(led1);
+		sleep(500);
+		turn_off(led1);
+		sleep(500);
+	}
+	```
+	EOS
+		)
+	end
+
+== md_led_c
+
+.small
+	markdown:
+		* 下記のようにコードを変換する
+		* sleep の後で第2引数で指定された関数をコールバックする
+
+ruby:
+	def md_led_callback_c
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```C
+	void blink_led_1() {
+		turn_on(led1);
+		sleep(500, blink_led_2);
+	}
+
+	void blink_led_2() {
+		turn_off(led2);
+		sleep(500, blink_led_3);
+	}
+
+	void blink_led_3() {}
+	```
+	EOS
+		)
+	end
+
+== md_led_callback_c
