@@ -1,0 +1,32 @@
+<div class="small">
+  <h2>
+    <span class="nonsplit">micro Elixir / ZEAM &nbsp;</span><span class="nonsplit">ネイティブなコールバック方式の</span><span class="nonsplit">マルチタスク機構 Sabotender</span>
+  </h2>
+  <p>コールバック方式の原理</p>
+  
+</div><pre><code class="C">void blink_led() {
+    turn_on(led1);
+    sleep(500);
+    turn_off(led1);
+    sleep(500);
+}
+</code></pre>
+
+<div class="small">
+  <ul>
+  <li>下記のようにコードを変換する</li>
+  <li>sleep の後で第2引数で指定された関数をコールバックする</li>
+  </ul>
+  
+</div><pre><code class="C">void blink_led_1() {
+    turn_on(led1);
+    sleep(500, blink_led_2);
+}
+
+void blink_led_2() {
+    turn_off(led2);
+    sleep(500, blink_led_3);
+}
+
+void blink_led_3() {}
+</code></pre>

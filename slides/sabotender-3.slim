@@ -1,0 +1,17 @@
+.small
+	h2
+		span.nonsplit micro Elixir / ZEAM &nbsp;
+		span.nonsplit ネイティブなコールバック方式の
+		span.nonsplit マルチタスク機構 Sabotender
+
+.small
+	markdown:
+		今までに次のような成果が得られた
+
+		* Zackernel: NodeプログラミングモデルのC++実装
+		* LCB: NodeプログラミングモデルのElixir実装
+		* 1スレッド/プロセスあたりのメモリ消費量の比較:
+		  * Zackernel vs C++11スレッド: 1スレッドあたり**204バイト** / 約546KB
+		  * LCB vs Elixirプロセス: 1スレッド/プロセスあたり**1332バイト** / 2835バイト
+		* 処理系レベルから設計を見直すことで，LCBをZackernel並みのメモリ消費量に抑える最適化を施せる余地があるのかもしれない
+			* これを **Sabotender** と称する
