@@ -1,0 +1,32 @@
+<h3>Elixirからの速度向上</h3>
+
+<p class="small center">
+  提案手法はElixir単体のコードと比べて4.43〜8.23倍高速になった
+</p>
+<img class="image400" src="resources/images/graph-1.png" />
+<div class="small">
+  <table><thead>
+  <tr>
+  <th style="text-align: left"></th>
+  <th style="text-align: right">Mac Pro</th>
+  <th style="text-align: right">GCE</th>
+  </tr>
+  </thead><tbody>
+  <tr>
+  <td style="text-align: left">Elixir_recursive</td>
+  <td style="text-align: right">12.177</td>
+  <td style="text-align: right">9.674</td>
+  </tr>
+  <tr>
+  <td style="text-align: left">Elixir_inline</td>
+  <td style="text-align: right">10.579</td>
+  <td style="text-align: right">8.075</td>
+  </tr>
+  <tr>
+  <td style="text-align: left">Rustler_GPU (Hastega)</td>
+  <td style="text-align: right">2.388</td>
+  <td style="text-align: right">1.176</td>
+  </tr>
+  </tbody></table>
+  
+</div>

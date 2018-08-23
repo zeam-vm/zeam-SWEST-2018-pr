@@ -1,0 +1,31 @@
+<h3>ネイティブコードとの比較</h3>
+
+<div class="small">
+  <ul>
+  <li>提案手法はGPUを使用するネイティブコードと比べ，1.48〜1.54倍遅くなっただけである</li>
+  <li>これはErlang VMのオーバーヘッドで，<strong>潜在的な最適化の余地</strong>であると考えられる</li>
+  </ul>
+  
+</div>
+<img class="image400" src="resources/images/graph-2.png" />
+<div class="small">
+  <table><thead>
+  <tr>
+  <th style="text-align: left"></th>
+  <th style="text-align: right">Mac Pro</th>
+  <th style="text-align: right">GCE</th>
+  </tr>
+  </thead><tbody>
+  <tr>
+  <td style="text-align: left">Rustler_GPU (Hastega)</td>
+  <td style="text-align: right">2.388</td>
+  <td style="text-align: right">1.176</td>
+  </tr>
+  <tr>
+  <td style="text-align: left">Rust_GPU</td>
+  <td style="text-align: right">1.546</td>
+  <td style="text-align: right">0.797</td>
+  </tr>
+  </tbody></table>
+  
+</div>

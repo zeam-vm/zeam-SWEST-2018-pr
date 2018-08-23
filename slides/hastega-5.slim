@@ -1,0 +1,22 @@
+markdown:
+	### ネイティブコードとの比較
+
+.small
+	markdown:
+		* 提案手法はGPUを使用するネイティブコードと比べ，1.48〜1.54倍遅くなっただけである
+		* これはErlang VMのオーバーヘッドで，**潜在的な最適化の余地**であると考えられる
+
+img.image400 src="resources/images/graph-2.png"
+
+ruby:
+	def md_result_1
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true, :tables => true).render(<<"EOS"
+	|                       | Mac Pro  | GCE     |
+	|:----------------------|---------:|--------:|
+	| Rustler_GPU (Hastega) | 2.388    | 1.176   |
+	| Rust_GPU              | 1.546    | 0.797   |
+	EOS
+		)
+	end
+.small
+	== md_result_1
