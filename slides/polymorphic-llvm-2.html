@@ -1,0 +1,39 @@
+<div class="small">
+  <h2>
+    <span class="nonsplit">micro Elixir / ZEAM &nbsp;</span><span class="nonsplit">LLVM を拡張した Polymorphic LLVM による</span><span class="nonsplit">インラインアセンブリコード記述</span>
+  </h2>
+</div>
+<div class="small">
+  <ul>
+  <li>型推論を行って，想定される型ごとに特化したコードを生成する</li>
+  </ul>
+  
+</div><pre><code class="elixir">def add(a, b) do            # 4. 引数・戻り値ともに整数型と浮動小数点数型がありえる
+    asm %ret = alloca
+    asm %1 = load *%a       # 2. %a は整数型と浮動小数点数型がありえる
+    asm %2 = load *%b       # 2. %b は整数型と浮動小数点数型がありえる
+    asm %3 = add %1, %2     # 1. %1,%2,%3は整数型と浮動小数点数型がありえる
+    asm store %3, *ret      # 3. *ret は整数型と浮動小数点数型がありえる
+    asm %ret
+end
+</code></pre>
+
+<div class="small">
+  <ul>
+  <li>アセンブリコードベリファイアにより，違法なメモリアクセスをしていないかを検査する
+  
+  <ul>
+  <li>store のポインタアクセスは，alloca で確保したメモリ領域なので，問題ない</li>
+  </ul></li>
+  <li>型安全性を破らないように，関数の先頭に引数の型に合わせて分岐するコードを挿入する
+  
+  <ul>
+  <li>a,b がともに整数型の場合</li>
+  <li>a,b がともに浮動小数点数型の場合→addをfaddに</li>
+  <li>a が整数型，bが浮動小数点数型の場合→aを浮動小数点数型にキャスト</li>
+  <li>a が浮動小数点数型，bが整数型の場合→bを浮動小数点数型にキャスト</li>
+  <li>a, b のどちらかが，整数型・浮動小数点数型のどちらでもない型の場合→型エラー</li>
+  </ul></li>
+  </ul>
+  
+</div>

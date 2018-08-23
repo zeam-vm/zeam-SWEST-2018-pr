@@ -1,0 +1,40 @@
+.small
+	h2
+		span.nonsplit micro Elixir / ZEAM &nbsp;
+		span.nonsplit LLVM を拡張した Polymorphic LLVM による
+		span.nonsplit インラインアセンブリコード記述
+
+.small
+	markdown:
+		* 型推論を行って，想定される型ごとに特化したコードを生成する
+
+ruby:
+	def md_poly_llvm_typed
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```elixir
+	def add(a, b) do			# 4. 引数・戻り値ともに整数型と浮動小数点数型がありえる
+		asm %ret = alloca
+		asm %1 = load *%a 		# 2. %a は整数型と浮動小数点数型がありえる
+		asm %2 = load *%b 		# 2. %b は整数型と浮動小数点数型がありえる
+		asm %3 = add %1, %2		# 1. %1,%2,%3は整数型と浮動小数点数型がありえる
+		asm store %3, *ret 		# 3. *ret は整数型と浮動小数点数型がありえる
+		asm %ret
+	end
+	```
+	EOS
+		)
+	end
+== md_poly_llvm_typed
+
+.small
+	markdown:
+		* アセンブリコードベリファイアにより，違法なメモリアクセスをしていないかを検査する
+			* store のポインタアクセスは，alloca で確保したメモリ領域なので，問題ない
+		* 型安全性を破らないように，関数の先頭に引数の型に合わせて分岐するコードを挿入する
+			* a,b がともに整数型の場合
+			* a,b がともに浮動小数点数型の場合→addをfaddに
+			* a が整数型，bが浮動小数点数型の場合→aを浮動小数点数型にキャスト
+			* a が浮動小数点数型，bが整数型の場合→bを浮動小数点数型にキャスト
+			* a, b のどちらかが，整数型・浮動小数点数型のどちらでもない型の場合→型エラー
+
+
