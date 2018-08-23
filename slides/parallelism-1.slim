@@ -5,46 +5,34 @@
 	h2
 		span.nonsplit.strong.heading 並列処理は一苦労
 
-.small
-	p.center
-		span.strong C言語でマルチコア対応
-		span とかって，
-		span.strong 大変!!
-		span ですよね
-
 	markdown:
-		* 同期や排他制御をかなり神経質にコーディングしないといけない
-		* デッドロックとか優先度逆転とかにも気を配らないといけない
+		* **C言語でマルチコア対応**は**大変!!**
+		* デッドロック・優先度逆転を防ぐよう注意して同期・排他制御をコーディングする必要あり
 		* 苦労してコーディングしても，そんなに性能が上がらない
 ruby:
 	def md_flow_c
 		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
 	```C
-	void main_task(intptr_t exinf) {					/* メインタスク */
-		int_t i;
-		act_tsk(FLOW_TASK1);							/* タスクの起動 */
-		act_tsk(FLOW_TASK2);
-		wai_flg(FLOW_FLAG, 0x3, TWF_ANDW, &flag);		/* 各タスクが計算終わるのをフラグで待つ */
+	void main_task(intptr_t exinf) {				/* メインタスク */
+		FLGPTN flag;								/* イベントフラグの待ち解除時の値を格納 */
+		act_tsk(FLOW_TASK1); act_tsk(FLOW_TASK2);	/* タスクの起動 */
+		wai_flg(FLOW_FLAG, 0x3, TWF_ANDW, &flag);	/* 各タスクが計算終わるのをイベントフラグで待つ */
 	}
-
-	void flow_task(intptr_t exinf) {					/* マルチコア計算タスク */
-		int_t i;
-		int_t data_start, data_end;
+	void flow_task(intptr_t exinf) {				/* マルチコア計算タスク */
+		int_t i, data_start, data_end;
 		int_t tskno = (int_t) exinf;
-
-		if (exinf == 1) {								/* 配列のどの範囲を計算するかを決める */
+		if (tskno == 1) {							/* 配列のどの範囲を計算するかを決める */
 			data_start = 0
 			data_end = DATA_DIV
-		} else if (exinf == 2) {
+		} else if (tskno == 2) {
 			...
 		}
-
-		for (i=data_start; i<data_end; i++)				/* 実際の計算 (各要素を2倍する) */
-			flow_data[i] *= 2;							/* 本当はもしかするとここで排他制御が要るかもしれない */
+		for (i=data_start; i<data_end; i++)			/* 実際の計算 (各要素を2倍する) */
+			flow_data[i] *= 2;						/* 本当はもしかするとここで排他制御が要るかもしれない */
+		set_flg(FLOW_FLAG, tskno);					/* イベントフラグの対応するビットを立てる */
 	}
 	```
 	EOS
 		)
 	end
-.small
-	== md_flow_c
+== md_flow_c
