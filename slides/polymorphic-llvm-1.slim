@@ -1,0 +1,49 @@
+.small
+	h2
+		span.nonsplit micro Elixir / ZEAM &nbsp;
+		span.nonsplit LLVM を拡張した Polymorphic LLVM による
+		span.nonsplit インラインアセンブリコード記述
+
+.small
+	markdown:
+		* 最近のコンパイラのコード生成系には LLVM が採用されている
+		* 中間言語 LLVM IR は，C言語とアセンブリ言語の中間のようなコード体系
+
+		64ビット整数型のローカル変数 a に定数1を代入するコード
+
+ruby:
+	def md_llvm
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```llvm
+	%a = alloca i64
+	store i64 1, i64* %a
+	```
+	EOS
+		)
+	end
+
+== md_llvm
+
+.small
+	markdown:
+		* Elixir では型多相(polymorphic type)，つまり例えば足し算のコードは整数型でも浮動小数点数型でも同じコードで動作する
+		* そこで，LLVM を型多相に拡張した Polymorphic LLVM を提案し，これを用いてインラインアセンブリコードを記述できるようにする
+
+ruby:
+	def md_poly_llvm
+		Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true).render(<<"EOS"
+	```elixir
+	def add(a, b) do
+		asm %ret = alloca
+		asm %1 = load *%a
+		asm %2 = load *%b
+		asm %3 = add %1, %2
+		asm store %3, *ret
+		asm %ret
+	end
+	```
+	EOS
+		)
+	end
+
+== md_poly_llvm
