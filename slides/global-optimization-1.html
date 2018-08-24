@@ -1,0 +1,20 @@
+<div class="small">
+  <h2>
+    <span class="nonsplit">micro Elixir / ZEAM &nbsp;</span><span class="nonsplit">大域的コード最適化機構</span>
+  </h2>
+  <ul>
+  <li>GPUの最適化をしようと思ったら，ライブラリの関数の意味を汲み取って大域的に最適化する必要がある</li>
+  </ul>
+  
+</div>
+<div class="relative">
+  <pre><code class="lang-elixir hljs large">0..10000
+|> Enum.map(foo)
+|> Enum.map(bar)</code></pre><svg class="absolute" height="180" viewBox="0, 0, 864, 180" width="864"><ellipse cx="100" cy="24" fill="none" rx="70" ry="15" stroke="pink" stroke-width="5"></ellipse><text fill="pink" font-size="16px" x="200" y="30">単純で均質で大量にあるデータ</text><ellipse cx="210" cy="75" fill="none" rx="30" ry="40" stroke="pink" stroke-width="5"></ellipse><text fill="pink" font-size="16px" x="250" y="75">同じような命令列</text><text fill="yellow" font-size="20px" x="400" y="90">ライブラリEnumやFlowのレベルで最適化</text></svg>
+</div>
+<div class="small">
+  <ul>
+  <li>そこで，ライブラリごとにコンパイラの構文木拡張と意味解析器，最適化器を記述できる仕組みを導入する</li>
+  </ul>
+  
+</div>
