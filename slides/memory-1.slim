@@ -4,3 +4,16 @@
 		span.nonsplit.heading その2
 	h2
 		span.nonsplit.strong.heading メモリ管理，例外処理は一苦労
+.small
+	markdown:
+		* mallocは遅いしメモリリークするし，自分で管理するのがツライ
+			* GCを扱えるライブラリは存在するが，不完全だしGC時に止まるので，組込みには向かない
+		* 例外処理のための記法が無く，悪名高きgotoやsetjmp/longjmpが登場してしまう
+
+.small
+	p.center.strong 仮にJavaやmrubyなどであっても...
+
+	markdown:
+		* GC時に止まってしまう
+		* メモリ障害が起こると，VM全体が落ちてしまう
+		* try/catchをきちんと書くのは，とても面倒
