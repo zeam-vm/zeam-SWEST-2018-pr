@@ -6,3 +6,25 @@
     <span class="nonsplit strong heading">メモリ管理，例外処理は一苦労</span>
   </h2>
 </div>
+<div class="small">
+  <ul>
+  <li>mallocは遅いしメモリリークするし，自分で管理するのがツライ
+  
+  <ul>
+  <li>GCを扱えるライブラリは存在するが，不完全だしGC時に止まるので，組込みには向かない</li>
+  </ul></li>
+  <li>例外処理のための記法が無く，悪名高きgotoやsetjmp/longjmpが登場してしまう</li>
+  </ul>
+  
+</div>
+<div class="small">
+  <p class="center strong">
+    仮にJavaやmrubyなどであっても...
+  </p>
+  <ul>
+  <li>GC時に止まってしまう</li>
+  <li>メモリ障害が起こると，VM全体が落ちてしまう</li>
+  <li>try/catchをきちんと書くのは，とても面倒</li>
+  </ul>
+  
+</div>
